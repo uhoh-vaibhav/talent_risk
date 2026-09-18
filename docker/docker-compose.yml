@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  talent-scoring-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: talent_scoring_api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    volumes:
+      - ../data:/app/data
+      - ../src/models/saved_models:/app/src/models/saved_models
+    restart: unless-stopped

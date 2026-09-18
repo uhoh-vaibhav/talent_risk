@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Pytest
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# MLflow
+mlruns/
+
+# Data (large files - keep structure, ignore contents)
+data/raw/*.csv
+data/raw/*.parquet
+data/processed/*.csv
+data/processed/*.parquet
+data/processed/*.joblib
+
+# Trained model artifacts
+src/models/artifacts/*.joblib
+src/models/artifacts/*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# Logs
+*.log
+
+# Presentation (generated)
+*.pptx
+
+# Docker
+docker/*.tar
