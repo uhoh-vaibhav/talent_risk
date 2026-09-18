@@ -1,0 +1,77 @@
+[
+  {
+    "feature": "kpis_met_above_80",
+    "mean_abs_shap": 0.1466,
+    "rank": 1
+  },
+  {
+    "feature": "avg_training_score",
+    "mean_abs_shap": 0.042,
+    "rank": 2
+  },
+  {
+    "feature": "recruitment_channel_sourcing",
+    "mean_abs_shap": 0.0349,
+    "rank": 3
+  },
+  {
+    "feature": "education_level",
+    "mean_abs_shap": 0.0201,
+    "rank": 4
+  },
+  {
+    "feature": "length_of_service",
+    "mean_abs_shap": 0.0189,
+    "rank": 5
+  },
+  {
+    "feature": "no_of_trainings",
+    "mean_abs_shap": 0.0187,
+    "rank": 6
+  },
+  {
+    "feature": "recruitment_channel_other",
+    "mean_abs_shap": 0.0186,
+    "rank": 7
+  },
+  {
+    "feature": "previous_year_rating",
+    "mean_abs_shap": 0.0176,
+    "rank": 8
+  },
+  {
+    "feature": "awards_won",
+    "mean_abs_shap": 0.0121,
+    "rank": 9
+  },
+  {
+    "feature": "gender_Male",
+    "mean_abs_shap": 0.0104,
+    "rank": 10
+  },
+  {
+    "feature": "department_R&D",
+    "mean_abs_shap": 0.0074,
+    "rank": 11
+  },
+  {
+    "feature": "age",
+    "mean_abs_shap": 0.0072,
+    "rank": 12
+  },
+  {
+    "feature": "department_Operations",
+    "mean_abs_shap": 0.0064,
+    "rank": 13
+  },
+  {
+    "feature": "recruitment_channel_referred",
+    "mean_abs_shap": 0.0046,
+    "rank": 14
+  },
+  {
+    "feature": "department_Human Resources",
+    "mean_abs_shap": 0.0042,
+    "rank": 15
+  }
+]

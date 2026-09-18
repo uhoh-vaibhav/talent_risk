@@ -1,0 +1,218 @@
+{
+  "class_distribution": {
+    "total_records": 54808,
+    "promotion_yes": 2353,
+    "promotion_no": 52455,
+    "promotion_rate": 0.0429
+  },
+  "by_department": [
+    {
+      "department": "Finance",
+      "promotion_rate": 0.0435,
+      "count": 6096
+    },
+    {
+      "department": "Human Resources",
+      "promotion_rate": 0.0423,
+      "count": 6048
+    },
+    {
+      "department": "Operations",
+      "promotion_rate": 0.0428,
+      "count": 18244
+    },
+    {
+      "department": "R&D",
+      "promotion_rate": 0.0441,
+      "count": 6048
+    },
+    {
+      "department": "Sales",
+      "promotion_rate": 0.0443,
+      "count": 6030
+    },
+    {
+      "department": "Technology",
+      "promotion_rate": 0.042,
+      "count": 12342
+    }
+  ],
+  "by_education_level": [
+    {
+      "education_level": "1.0",
+      "promotion_rate": 0.0431,
+      "count": 2735
+    },
+    {
+      "education_level": "3.0",
+      "promotion_rate": 0.0424,
+      "count": 38262
+    },
+    {
+      "education_level": "4.0",
+      "promotion_rate": 0.0444,
+      "count": 13811
+    }
+  ],
+  "by_previous_year_rating": [
+    {
+      "previous_year_rating": 1.0,
+      "promotion_rate": 0.0426,
+      "count": 5490
+    },
+    {
+      "previous_year_rating": 2.0,
+      "promotion_rate": 0.0423,
+      "count": 8275
+    },
+    {
+      "previous_year_rating": 3.0,
+      "promotion_rate": 0.0422,
+      "count": 24578
+    },
+    {
+      "previous_year_rating": 4.0,
+      "promotion_rate": 0.0444,
+      "count": 10835
+    },
+    {
+      "previous_year_rating": 5.0,
+      "promotion_rate": 0.0448,
+      "count": 5630
+    }
+  ],
+  "by_avg_training_score": [
+    {
+      "score_range": "Very Low",
+      "promotion_rate": 0.0405,
+      "count": 11681
+    },
+    {
+      "score_range": "Low",
+      "promotion_rate": 0.0434,
+      "count": 10812
+    },
+    {
+      "score_range": "Medium",
+      "promotion_rate": 0.042,
+      "count": 10780
+    },
+    {
+      "score_range": "High",
+      "promotion_rate": 0.0431,
+      "count": 10685
+    },
+    {
+      "score_range": "Very High",
+      "promotion_rate": 0.0458,
+      "count": 10850
+    }
+  ],
+  "by_kpis_met_above_80": [
+    {
+      "kpis_met_above_80": 0,
+      "promotion_rate": 0.0381,
+      "count": 35709
+    },
+    {
+      "kpis_met_above_80": 1,
+      "promotion_rate": 0.052,
+      "count": 19099
+    }
+  ],
+  "by_awards_won": [
+    {
+      "awards_won": 0,
+      "promotion_rate": 0.0426,
+      "count": 53252
+    },
+    {
+      "awards_won": 1,
+      "promotion_rate": 0.0527,
+      "count": 1556
+    }
+  ],
+  "by_length_of_service": [
+    {
+      "length_of_service_range": "0-2",
+      "promotion_rate": 0.0403,
+      "count": 3247
+    },
+    {
+      "length_of_service_range": "3-5",
+      "promotion_rate": 0.0397,
+      "count": 4891
+    },
+    {
+      "length_of_service_range": "6-10",
+      "promotion_rate": 0.0411,
+      "count": 8172
+    },
+    {
+      "length_of_service_range": "11-20",
+      "promotion_rate": 0.0445,
+      "count": 15989
+    },
+    {
+      "length_of_service_range": "20+",
+      "promotion_rate": 0.0436,
+      "count": 22509
+    }
+  ],
+  "by_age_group": [
+    {
+      "age_group": "18-25",
+      "promotion_rate": 0.0433,
+      "count": 8008
+    },
+    {
+      "age_group": "26-35",
+      "promotion_rate": 0.0408,
+      "count": 13439
+    },
+    {
+      "age_group": "36-45",
+      "promotion_rate": 0.0444,
+      "count": 13364
+    },
+    {
+      "age_group": "46-55",
+      "promotion_rate": 0.0453,
+      "count": 13255
+    },
+    {
+      "age_group": "56-65",
+      "promotion_rate": 0.0392,
+      "count": 6742
+    }
+  ],
+  "by_gender": [
+    {
+      "gender": "Female",
+      "promotion_rate": 0.0423,
+      "count": 16391
+    },
+    {
+      "gender": "Male",
+      "promotion_rate": 0.0432,
+      "count": 38417
+    }
+  ],
+  "by_recruitment_channel": [
+    {
+      "recruitment_channel": "other",
+      "promotion_rate": 0.0433,
+      "count": 30187
+    },
+    {
+      "recruitment_channel": "referred",
+      "promotion_rate": 0.0538,
+      "count": 1635
+    },
+    {
+      "recruitment_channel": "sourcing",
+      "promotion_rate": 0.0416,
+      "count": 22986
+    }
+  ]
+}

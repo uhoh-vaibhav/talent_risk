@@ -1,0 +1,77 @@
+[
+  {
+    "feature": "age",
+    "mean_abs_shap": 0.5783,
+    "rank": 1
+  },
+  {
+    "feature": "job_level",
+    "mean_abs_shap": 0.2877,
+    "rank": 2
+  },
+  {
+    "feature": "income_per_tenure",
+    "mean_abs_shap": 0.1957,
+    "rank": 3
+  },
+  {
+    "feature": "monthly_income",
+    "mean_abs_shap": 0.1662,
+    "rank": 4
+  },
+  {
+    "feature": "years_since_promotion",
+    "mean_abs_shap": 0.1631,
+    "rank": 5
+  },
+  {
+    "feature": "promotion_stagnation",
+    "mean_abs_shap": 0.1404,
+    "rank": 6
+  },
+  {
+    "feature": "overtime",
+    "mean_abs_shap": 0.1248,
+    "rank": 7
+  },
+  {
+    "feature": "stock_option_level",
+    "mean_abs_shap": 0.1013,
+    "rank": 8
+  },
+  {
+    "feature": "percent_salary_hike",
+    "mean_abs_shap": 0.0981,
+    "rank": 9
+  },
+  {
+    "feature": "performance_rating",
+    "mean_abs_shap": 0.089,
+    "rank": 10
+  },
+  {
+    "feature": "num_companies_worked",
+    "mean_abs_shap": 0.0794,
+    "rank": 11
+  },
+  {
+    "feature": "flight_risk_signal",
+    "mean_abs_shap": 0.0767,
+    "rank": 12
+  },
+  {
+    "feature": "department_Sales",
+    "mean_abs_shap": 0.0719,
+    "rank": 13
+  },
+  {
+    "feature": "job_satisfaction",
+    "mean_abs_shap": 0.0636,
+    "rank": 14
+  },
+  {
+    "feature": "satisfaction_composite",
+    "mean_abs_shap": 0.0563,
+    "rank": 15
+  }
+]

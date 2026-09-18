@@ -12,5 +12,6 @@ services:
       - PORT=8000
     volumes:
       - ../data:/app/data
+      - ../artifacts:/app/artifacts
       - ../src/models/saved_models:/app/src/models/saved_models
     restart: unless-stopped

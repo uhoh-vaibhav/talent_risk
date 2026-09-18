@@ -3,1021 +3,915 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Talent Risk Scoring System - HR Executive Dashboard</title>
+  <title>Talent Risk & Promotion Intelligence Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-slate: #0b0f19;
-      --card-bg: rgba(30, 41, 59, 0.65);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-heading: #f8fafc;
-      --text-body: #cbd5e1;
-      --text-muted: #64748b;
-      --indigo: #6366f1;
-      --emerald: #10b981;
-      --rose: #f43f5e;
-      --amber: #f59e0b;
-      --cyan: #06b6d4;
-      --purple: #a855f7;
-      --radius: 16px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-slate);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(244, 63, 94, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-      color: var(--text-body);
-      min-height: 100vh;
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo-container {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, var(--indigo), var(--cyan));
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      font-weight: 800;
-      color: white;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-    }
-
-    .brand-title h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--text-heading);
-      letter-spacing: -0.5px;
-    }
-
-    .brand-title p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .nav-tabs {
-      display: flex;
-      background: rgba(15, 23, 42, 0.6);
-      padding: 0.3rem;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      gap: 0.2rem;
-    }
-
-    .nav-tab {
-      padding: 0.59rem 1.4rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: var(--transition);
-    }
-
-    .nav-tab.active {
-      background: var(--indigo);
-      color: white;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-    }
-
-    /* Layout */
-    .app-layout {
-      display: grid;
-      grid-template-columns: minmax(380px, 480px) 1fr;
-      gap: 2rem;
-    }
-
-    @media (max-width: 1100px) {
-      .app-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 1.8rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-header {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    /* Form Styling */
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-group.span-2 {
-      grid-column: span 2;
-    }
-
-    label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    input, select {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid var(--card-border);
-      color: var(--text-heading);
-      padding: 0.65rem 0.85rem;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      outline: none;
-      transition: var(--transition);
-      width: 100%;
-      min-width: 0;
-      box-sizing: border-box;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--indigo);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--indigo), #4338ca);
-      color: white;
-      border: none;
-      padding: 0.9rem;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 1.2rem;
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-      transition: var(--transition);
-    }
-
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
-    }
-
-    /* Right Section Components */
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-    }
-
-    /* Metric Cards */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-    }
-
-    .metric-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .metric-title {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .metric-val {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* 2x2 Matrix Visualizer */
-    .matrix-wrapper {
-      position: relative;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      height: 400px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .quadrant-box {
-      border-radius: 14px;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid var(--card-border);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .q-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .q-sub {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      line-height: 1.3;
-    }
-
-    /* Active Quadrant Styles */
-    .q-monitor { background: rgba(245, 158, 11, 0.05); }
-    .q-monitor.active { background: rgba(245, 158, 11, 0.2); border-color: var(--amber); box-shadow: 0 0 30px rgba(245, 158, 11, 0.3); }
-
-    .q-retain { background: rgba(244, 63, 94, 0.05); }
-    .q-retain.active { background: rgba(244, 63, 94, 0.2); border-color: var(--rose); box-shadow: 0 0 30px rgba(244, 63, 94, 0.3); }
-
-    .q-core { background: rgba(99, 102, 241, 0.05); }
-    .q-core.active { background: rgba(99, 102, 241, 0.2); border-color: var(--indigo); box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); }
-
-    .q-invest { background: rgba(16, 185, 129, 0.05); }
-    .q-invest.active { background: rgba(16, 185, 129, 0.2); border-color: var(--emerald); box-shadow: 0 0 30px rgba(16, 185, 129, 0.3); }
-
-    /* Action Recommendation Banner */
-    .strategy-banner {
-      background: rgba(15, 23, 42, 0.8);
-      border-left: 4px solid var(--indigo);
-      border-radius: 12px;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    /* SHAP Feature Impact Bars */
-    .shap-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .shap-column h4 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-    }
-
-    .shap-bar-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .shap-bar-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.78rem;
-    }
-
-    .shap-bar-track {
-      width: 100%;
-      height: 7px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .shap-bar-fill {
-      height: 100%;
-      border-radius: 999px;
-    }
-
-    /* Table Component */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.84rem;
-      text-align: left;
-    }
-
-    .data-table th {
-      padding: 0.8rem 1rem;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--card-border);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-    }
-
-    .data-table td {
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .data-table tr:hover {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .badge {
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .badge-rose { background: rgba(244, 63, 94, 0.2); color: var(--rose); }
-    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: var(--emerald); }
-    .badge-gray { background: rgba(255, 255, 255, 0.1); color: var(--text-muted); }
-    .badge-indigo { background: rgba(99, 102, 241, 0.2); color: var(--indigo); }
-    .badge-cyan { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
-
-    .btn-action-sm {
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.4);
-      color: white;
-      padding: 0.35rem 0.8rem;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-action-sm:hover {
-      background: var(--indigo);
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-    }
-
-    /* Tab content hide/show */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo-container">T</div>
-        <div class="brand-title">
-          <h1>Talent Risk Scoring System</h1>
-          <p>AI Corporate HR Analytics • Attrition Risk & Promotion Readiness 2x2 Matrix</p>
+  <!-- Application Shell -->
+  <div class="app-shell">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar">
+      <div class="brand-section" style="margin-bottom: 24px; padding: 0 4px;">
+        <div class="brand-logo">TR</div>
+        <div class="brand-text">
+          <h1>Talent Risk AI</h1>
+          <p>Workforce Intelligence</p>
         </div>
       </div>
 
-      <div class="nav-tabs">
-        <div class="nav-tab active" onclick="switchTab('single')">Single Employee Evaluation</div>
-        <div class="nav-tab" onclick="switchTab('dataset')">📁 Real Dataset Explorer</div>
+      <div class="sidebar-nav-group">
+        <div class="sidebar-group-title">Overview</div>
+        <button class="sidebar-link active" data-view="overview">
+          <span class="sidebar-icon">📊</span> Overview Dashboard
+        </button>
       </div>
-    </header>
 
-    <!-- 1. Single Employee Tab Content -->
-    <div id="tabSingle" class="tab-content active">
-      <div class="app-layout">
-        <!-- Form Input Card -->
-        <div class="card">
-          <div class="card-header">
-            <span>👤 Employee Profile</span>
+      <div class="sidebar-nav-group">
+        <div class="sidebar-group-title">Prediction</div>
+        <button class="sidebar-link" data-view="scoring">
+          <span class="sidebar-icon">👤</span> Individual Scoring
+        </button>
+        <button class="sidebar-link" data-view="batch">
+          <span class="sidebar-icon">📁</span> Batch Scoring
+        </button>
+      </div>
+
+      <div class="sidebar-nav-group">
+        <div class="sidebar-group-title">Analytics & Governance</div>
+        <button class="sidebar-link" data-view="models">
+          <span class="sidebar-icon">⚙️</span> Model Performance
+        </button>
+        <button class="sidebar-link" data-view="eda">
+          <span class="sidebar-icon">📈</span> Workforce EDA
+        </button>
+        <button class="sidebar-link" data-view="fairness">
+          <span class="sidebar-icon">⚖️</span> Demographic Fairness
+        </button>
+      </div>
+
+      <div class="sidebar-nav-group">
+        <div class="sidebar-group-title">Data</div>
+        <button class="sidebar-link" data-view="dataset">
+          <span class="sidebar-icon">🗄️</span> Dataset Explorer
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="dataset-context-box">
+          <div class="dataset-context-title">
+            <span>Dual Pipeline Setup</span>
+            <span class="badge badge-gray">Honest Schemas</span>
           </div>
+          <div class="dataset-context-item">
+            <strong>Attrition Model:</strong> IBM HR (1,470 rows)
+          </div>
+          <div class="dataset-context-item">
+            <strong>Promotion Model:</strong> HR Analytics (54,808 rows)
+          </div>
+        </div>
+      </div>
+    </aside>
 
-          <form id="employeeForm">
-            <div class="form-grid">
-              <div class="form-group span-2">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.3rem;">
-                  <label>Employee Identifier / Number</label>
-                  <span id="empIdBadge" class="badge badge-gray" style="font-size: 0.68rem;">Dataset Lookup</span>
-                </div>
-                <input type="text" id="employee_id" value="EMP_78492" placeholder="e.g. EMP_78492 or 1042" required oninput="onEmpIdInput()" style="width: 100%;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem; min-height: 1.1rem;">
-                  <div id="empIdInfo" style="font-size: 0.72rem; color: var(--text-muted); flex: 1;"></div>
-                  <button type="button" class="btn-action-sm" onclick="lookupEmpId()" style="white-space: nowrap; padding: 0.3rem 0.65rem; font-size: 0.7rem;">🔍 Lookup ID</button>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Department</label>
-                <select id="department">
-                  <option value="R&D" selected>R&D</option>
-                  <option value="Sales">Sales</option>
-                  <option value="Human Resources">Human Resources</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Operations">Operations</option>
-                  <option value="Finance">Finance</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Gender</label>
-                <select id="gender">
-                  <option value="Female" selected>Female</option>
-                  <option value="Male">Male</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Age</label>
-                <input type="number" id="age" value="32" min="18" max="80">
-              </div>
-
-              <div class="form-group">
-                <label>Education Level</label>
-                <select id="education_level">
-                  <option value="1">1 - High School</option>
-                  <option value="2">2 - College</option>
-                  <option value="3" selected>3 - Bachelor's</option>
-                  <option value="4">4 - Master's</option>
-                  <option value="5">5 - Doctorate</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Tenure (Years)</label>
-                <input type="number" id="tenure_years" value="4.5" step="0.5">
-              </div>
-
-              <div class="form-group">
-                <label>Yrs Since Promotion</label>
-                <input type="number" id="years_since_promotion" value="3.0" step="0.5">
-              </div>
-
-              <div class="form-group">
-                <label>Monthly Income ($)</label>
-                <input type="number" id="monthly_income" value="5800" step="100">
-              </div>
-
-              <div class="form-group">
-                <label>Overtime</label>
-                <select id="overtime_status">
-                  <option value="1" selected>Yes (1)</option>
-                  <option value="0">No (0)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Satisfaction (1-5)</label>
-                <input type="number" id="satisfaction_score" value="2.2" step="0.1" min="1" max="5">
-              </div>
-
-              <div class="form-group">
-                <label>Performance Rating</label>
-                <input type="number" id="performance_rating" value="3.5" step="0.1" min="1" max="5">
-              </div>
-
-              <div class="form-group">
-                <label>KPI Met >80%</label>
-                <select id="kpi_met_above_80">
-                  <option value="1" selected>Yes (1)</option>
-                  <option value="0">No (0)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Awards Won</label>
-                <select id="awards_won">
-                  <option value="0" selected>No (0)</option>
-                  <option value="1">Yes (1)</option>
-                </select>
-              </div>
-            </div>
-
-            <button type="submit" class="btn-submit" id="btnSubmit">⚡ Evaluate Talent Risk & Readiness</button>
-          </form>
+    <!-- Main View Area -->
+    <div class="main-wrapper">
+      
+      <!-- Top Application Header -->
+      <header class="top-header">
+        <div class="brand-text">
+          <h1 style="font-size: 14px; font-weight: 600; color: var(--text-secondary);">Enterprise Talent Risk & Promotion Intelligence Platform</h1>
         </div>
 
-        <!-- Right Column: Visual Dashboard -->
-        <div class="right-column">
-          <div class="metrics-row">
-            <div class="metric-card">
-              <span class="metric-title">ATTRITION RISK SCORE</span>
-              <span class="metric-val" id="valAttrition" style="color: var(--rose);">--%</span>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="barAttrition" style="width: 0%; background: var(--rose);"></div>
-              </div>
-            </div>
+        <div class="system-status-bar">
+          <div class="status-badge" id="headerDataMode">
+            <span class="status-dot"></span> VERIFIED HR DATA
+          </div>
+          <div class="status-badge" id="headerModelStatus">
+            <span class="status-dot"></span> 2 MODELS READY
+          </div>
+          <div class="status-badge">
+            <span class="status-dot"></span> API ONLINE
+          </div>
+        </div>
+      </header>
 
-            <div class="metric-card">
-              <span class="metric-title">PROMOTION READINESS SCORE</span>
-              <span class="metric-val" id="valPromotion" style="color: var(--emerald);">--%</span>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="barPromotion" style="width: 0%; background: var(--emerald);"></div>
-              </div>
-            </div>
+      <!-- Page Content Views -->
+      <main class="main-content">
 
-            <div class="metric-card">
-              <span class="metric-title">TALENT QUADRANT</span>
-              <span class="metric-val" id="valQuadrant" style="font-size: 1.1rem; color: var(--indigo);">Ready</span>
-              <span style="font-size: 0.75rem; color: var(--text-muted);" id="valPriority">PRIORITY: MEDIUM</span>
+        <!-- ================================================================= -->
+        <!-- VIEW 1: OVERVIEW DASHBOARD -->
+        <!-- ================================================================= -->
+        <section id="view-overview" class="view-panel active">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Workforce Overview</h2>
+              <p class="page-description">
+                Monitor baseline retention dynamics, promotional velocity, and talent distribution derived from verified organizational benchmarks.
+              </p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-secondary btn-sm" onclick="fetchOverview()">Refresh Analytics</button>
             </div>
           </div>
 
-          <!-- 2x2 Matrix Canvas Visualizer -->
-          <div class="card" style="position: relative;">
-            <div class="card-header">
-              <span>🎯 2x2 Talent Matrix Visualizer</span>
-              <span style="font-size: 0.78rem; font-weight: 500; color: var(--text-muted);">Thresholds: 50% Attrition | 50% Promotion</span>
+          <!-- Top Row KPI Stat Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card info">
+              <span class="kpi-label">Workforce Records Analyzed</span>
+              <div class="kpi-value" id="ovTotalRecords">56,278</div>
+              <span class="kpi-subtext">1,470 Attrition • 54,808 Promotion</span>
             </div>
 
-            <div style="position: relative;">
-              <div class="matrix-wrapper">
-                <div class="quadrant-box q-monitor" id="q_monitor">
-                  <div class="q-title" style="color: var(--amber);">⚠️ Monitor & Engage</div>
-                  <div class="q-sub">High Attrition Risk (>50%)<br>Low Promotion Readiness (≤50%)</div>
+            <div class="kpi-card attrition">
+              <span class="kpi-label">Observed Attrition Baseline</span>
+              <div class="kpi-value" id="ovAttritionRate">14.2%</div>
+              <span class="kpi-subtext">Historical benchmark turnover rate</span>
+            </div>
+
+            <div class="kpi-card promotion">
+              <span class="kpi-label">Observed Promotion Baseline</span>
+              <div class="kpi-value" id="ovPromotionRate">4.3%</div>
+              <span class="kpi-subtext">Historical advancement frequency</span>
+            </div>
+
+            <div class="kpi-card warning">
+              <span class="kpi-label">Calibrated Decision Thresholds</span>
+              <div class="kpi-value" style="font-size: 19px; margin-top: 8px;">
+                Attr: <span id="ovThreshAttr">0.40</span> • Promo: <span id="ovThreshPromo">0.50</span>
+              </div>
+              <span class="kpi-subtext">Optimized via precision-recall trade-off</span>
+            </div>
+          </div>
+
+          <!-- Second Row: Matrix Distribution & Model Health -->
+          <div class="layout-2col">
+            <!-- Talent Matrix Baseline Distribution Card -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Talent Matrix Distribution Baseline</div>
+                  <div class="card-subtitle">Workforce segment allocation under calibrated decision boundaries</div>
+                </div>
+              </div>
+
+              <!-- 2x2 Quadrant Visual Grid -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: var(--radius-sm); padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="badge badge-rose">Urgent Retention</span>
+                    <strong id="ovQuadUrgent" style="color: var(--accent-attrition); font-size: 16px;">12.4%</strong>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                    Key Talent Flight Risk (High Risk • High Readiness)
+                  </div>
                 </div>
 
-                <div class="quadrant-box q-retain" id="q_retain">
-                  <div class="q-title" style="color: var(--rose);">🚨 Urgent Retention & Key Talent</div>
-                  <div class="q-sub">High Attrition Risk (>50%)<br>High Promotion Readiness (>50%)</div>
+                <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-sm); padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="badge badge-emerald">Invest & Fast-Track</span>
+                    <strong id="ovQuadInvest" style="color: var(--accent-promotion); font-size: 16px;">24.6%</strong>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                    High Potential (Low Risk • High Readiness)
+                  </div>
                 </div>
 
-                <div class="quadrant-box q-core" id="q_core">
-                  <div class="q-title" style="color: var(--indigo);">💼 Core Performer / Low Priority</div>
-                  <div class="q-sub">Low Attrition Risk (≤50%)<br>Low Promotion Readiness (≤50%)</div>
+                <div style="background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: var(--radius-sm); padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="badge badge-amber">Monitor & Engage</span>
+                    <strong id="ovQuadMonitor" style="color: var(--accent-warning); font-size: 16px;">18.2%</strong>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                    Flight Risk Mitigation (High Risk • Low Readiness)
+                  </div>
                 </div>
 
-                <div class="quadrant-box q-invest" id="q_invest">
-                  <div class="q-title" style="color: var(--emerald);">🌱 Invest & Fast-Track</div>
-                  <div class="q-sub">Low Attrition Risk (≤50%)<br>High Promotion Readiness (>50%)</div>
+                <div style="background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: var(--radius-sm); padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="badge badge-indigo">Core Performer</span>
+                    <strong id="ovQuadCore" style="color: var(--accent-primary); font-size: 16px;">44.8%</strong>
+                  </div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                    Steady Workforce (Low Risk • Low Readiness)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Model Health Summary Card -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Production Model Governance</div>
+                  <div class="card-subtitle">Architecture configuration & validation status</div>
+                </div>
+                <span class="badge badge-emerald">Operational</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; padding: 10px; background: var(--bg-surface-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                  <div>
+                    <strong>Attrition Classifier:</strong>
+                    <div style="color: var(--text-muted);">Logistic Regression (Class-Balanced)</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="color: var(--accent-attrition); font-weight: 600;">ROC-AUC 0.5463</span>
+                    <div style="color: var(--text-muted); font-size: 11px;">Threshold: 0.40</div>
+                  </div>
                 </div>
 
+                <div style="display: flex; justify-content: space-between; padding: 10px; background: var(--bg-surface-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                  <div>
+                    <strong>Promotion Classifier:</strong>
+                    <div style="color: var(--text-muted);">Logistic Regression (Class-Balanced)</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="color: var(--accent-promotion); font-weight: 600;">ROC-AUC 0.5551</span>
+                    <div style="color: var(--text-muted); font-size: 11px;">Threshold: 0.50</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; padding: 8px 10px; background: var(--bg-surface-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); color: var(--text-secondary);">
+                  <span>SHAP Attribution Engine:</span>
+                  <span style="font-weight: 600; color: var(--text-primary);">Linear & Tree Explainer Active</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; padding: 8px 10px; background: var(--bg-surface-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); color: var(--text-secondary);">
+                  <span>Demographic Fairness:</span>
+                  <span style="font-weight: 600; color: var(--accent-promotion);">Four-Fifths Rule Satisfied</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- HR Recommendation Strategy Banner -->
-          <div class="strategy-banner" id="strategyBanner">
-            <span style="font-size: 0.75rem; font-weight: 800; color: var(--indigo);" id="strategyCode">HR ACTION RECOMMENDATION</span>
-            <p style="font-size: 0.95rem; font-weight: 500; color: var(--text-heading);" id="strategyText">Run prediction to generate custom HR strategy.</p>
-          </div>
-
-          <!-- SHAP Drivers Section -->
+          <!-- Third Row: Key Workforce Insights -->
           <div class="card">
             <div class="card-header">
-              <span>🔍 Top SHAP Feature Attributions</span>
+              <div class="card-title">Key Workforce Insights & Empirical Observations</div>
             </div>
-
-            <div class="shap-section">
-              <div class="shap-column">
-                <h4 style="color: var(--rose);">Attrition Risk Feature Impact</h4>
-                <div id="attritionShapList">
-                  <div style="font-size: 0.8rem; color: var(--text-muted);">No drivers evaluated.</div>
-                </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;">
+              <div class="insight-callout">
+                <strong>Overtime Frequency Impact:</strong> Employees working recurring overtime exhibit more than double the voluntary attrition rate compared to employees with standard operating hours.
               </div>
-
-              <div class="shap-column">
-                <h4 style="color: var(--emerald);">Promotion Readiness Feature Impact</h4>
-                <div id="promotionShapList">
-                  <div style="font-size: 0.8rem; color: var(--text-muted);">No drivers evaluated.</div>
-                </div>
+              <div class="insight-callout">
+                <strong>KPI Threshold Association:</strong> Meeting key performance indicators above the 80% mark represents the single strongest empirical predictor of promotion readiness.
+              </div>
+              <div class="insight-callout">
+                <strong>Tenure & Promotion Gap:</strong> Career stagnation (extended years in role relative to total company tenure) significantly increases attrition likelihood among top performers.
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </section>
 
-    <!-- 2. Real Dataset Explorer Tab Content -->
-    <div id="tabDataset" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <span>📁 Real Employee Dataset Explorer</span>
-          <span style="font-size: 0.8rem; font-weight: 600; color: var(--indigo);" id="datasetCounter">Loaded 56,278 Records</span>
-        </div>
-
-        <!-- Dataset Filters Bar -->
-        <div style="display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; align-items: flex-end;">
-          <div style="flex: 1.2; min-width: 220px;">
-            <label>Dataset Target Source</label>
-            <select id="dsSourceSelect" onchange="fetchDatasetRecords()" style="width: 100%; margin-top: 0.3rem;">
-              <option value="unified" selected>Unified Master (IBM + Promotion: 56,278 Records)</option>
-              <option value="ibm">IBM HR Attrition Dataset (1,470 Records)</option>
-              <option value="promotion">HR Promotion Prediction Dataset (54,808 Records)</option>
-            </select>
+        <!-- ================================================================= -->
+        <!-- VIEW 2: INDIVIDUAL SCORING -->
+        <!-- ================================================================= -->
+        <section id="view-scoring" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Individual Employee Scoring</h2>
+              <p class="page-description">
+                Evaluate prospective employee profiles across dual machine learning models, inspect local SHAP feature drivers, and view 2×2 Talent Matrix positioning.
+              </p>
+            </div>
+            <div class="page-actions">
+              <span style="font-size: 12px; color: var(--text-muted); margin-right: 4px;">Preset Profiles:</span>
+              <button class="btn btn-preset" onclick="loadPreset('flight_risk')">Flight Risk</button>
+              <button class="btn btn-preset" onclick="loadPreset('high_potential')">High Potential</button>
+              <button class="btn btn-preset" onclick="loadPreset('core')">Core Performer</button>
+            </div>
           </div>
 
-          <div style="flex: 1; min-width: 160px;">
-            <label>Department Filter</label>
-            <select id="dsDeptSelect" onchange="fetchDatasetRecords()" style="width: 100%; margin-top: 0.3rem;">
-              <option value="ALL" selected>All Departments</option>
-              <option value="Sales">Sales</option>
-              <option value="R&D">R&D</option>
-              <option value="Technology">Technology</option>
-              <option value="Operations">Operations</option>
-              <option value="Human Resources">Human Resources</option>
-              <option value="Finance">Finance</option>
-            </select>
+          <div class="layout-scoring">
+            
+            <!-- Left Column: Input Form -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Employee Profile Input</div>
+              </div>
+
+              <!-- Employee Search / Identifier Lookup -->
+              <div class="form-section">
+                <div class="form-section-title">Record Identification</div>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="employee_id" value="EMP_DEMO_01" placeholder="e.g. EMP_00123 or 1001" style="flex: 1;">
+                  <button type="button" class="btn btn-secondary" id="btnLookupEmp">Search</button>
+                </div>
+                <div id="lookupStatus" style="font-size: 11px; margin-top: 4px;"></div>
+              </div>
+
+              <form id="individualScoringForm">
+                <!-- Section 1: Employee Profile -->
+                <div class="form-section">
+                  <div class="form-section-title">Demographic Profile</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label>Department</label>
+                      <select id="department">
+                        <option value="Operations">Operations</option>
+                        <option value="R&D" selected>R&D</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Finance">Finance</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Gender</label>
+                      <select id="gender">
+                        <option value="Female" selected>Female</option>
+                        <option value="Male">Male</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Age (Years)</label>
+                      <input type="number" id="age" value="32" min="18" max="80">
+                      <span class="input-hint">Range: 18 – 80</span>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Education Level</label>
+                      <select id="education_level">
+                        <option value="1">1 - Secondary</option>
+                        <option value="2">2 - Associate Degree</option>
+                        <option value="3" selected>3 - Bachelor's Degree</option>
+                        <option value="4">4 - Master's / PhD</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2: Career Information -->
+                <div class="form-section">
+                  <div class="form-section-title">Role & Tenure</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label>Company Tenure (Years)</label>
+                      <input type="number" id="tenure_years" value="4.0" step="0.5" min="0">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Years in Current Role</label>
+                      <input type="number" id="years_since_promotion" value="2.0" step="0.5" min="0">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Trainings Completed</label>
+                      <input type="number" id="num_trainings_last_year" value="2" min="0" max="10">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Marital Status</label>
+                      <select id="marital_status">
+                        <option value="Single" selected>Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Divorced">Divorced</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 3: Performance -->
+                <div class="form-section">
+                  <div class="form-section-title">Performance & Engagement</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label>Performance Rating (1-5)</label>
+                      <input type="number" id="performance_rating" value="3.8" step="0.1" min="1" max="5">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Job Satisfaction (1-5)</label>
+                      <input type="number" id="satisfaction_score" value="2.5" step="0.5" min="1" max="5">
+                    </div>
+
+                    <div class="form-group">
+                      <label>KPIs Met > 80%</label>
+                      <select id="kpi_met_above_80">
+                        <option value="1" selected>Yes (KPIs Met)</option>
+                        <option value="0">No (Below 80%)</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Awards Won</label>
+                      <select id="awards_won">
+                        <option value="0" selected>None</option>
+                        <option value="1">Award Winner</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                      <label>Avg Training Score (0-100)</label>
+                      <input type="number" id="avg_training_score" value="74" min="0" max="100">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 4: Compensation -->
+                <div class="form-section">
+                  <div class="form-section-title">Compensation & Workload</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label>Monthly Income ($)</label>
+                      <input type="number" id="monthly_income" value="6400" step="100" min="500">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Overtime Frequency</label>
+                      <select id="overtime_status">
+                        <option value="0">Standard Hours</option>
+                        <option value="1" selected>Regular Overtime</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                      <label>Stock Option Level (0-3)</label>
+                      <select id="stock_option_level">
+                        <option value="0">0 - No Options</option>
+                        <option value="1" selected>1 - Standard Allocation</option>
+                        <option value="2">2 - Elevated Allocation</option>
+                        <option value="3">3 - Executive Allocation</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="btnSubmitScoring" style="width: 100%; margin-top: 14px; padding: 10px;">
+                  Evaluate Talent Risk & Readiness
+                </button>
+              </form>
+            </div>
+
+            <!-- Right Column: Results & Matrix -->
+            <div>
+              <!-- Probability Metric Tiles -->
+              <div class="prob-tile-grid">
+                <div class="prob-tile">
+                  <div class="prob-tile-header">
+                    <span>Attrition Risk P(attrition)</span>
+                    <span id="resAttrLevelBadge" class="badge badge-rose">Elevated Risk</span>
+                  </div>
+                  <div class="prob-tile-value" id="resAttritionVal" style="color: var(--accent-attrition);">--%</div>
+                  <div class="prob-tile-progress">
+                    <div class="prob-tile-fill" id="resAttritionBar" style="width: 0%; background: var(--accent-attrition);"></div>
+                  </div>
+                  <div class="prob-tile-sub" id="resThreshAttrText">Threshold: 40%</div>
+                </div>
+
+                <div class="prob-tile">
+                  <div class="prob-tile-header">
+                    <span>Promotion Readiness P(promotion)</span>
+                    <span id="resPromoLevelBadge" class="badge badge-emerald">Ready</span>
+                  </div>
+                  <div class="prob-tile-value" id="resPromotionVal" style="color: var(--accent-promotion);">--%</div>
+                  <div class="prob-tile-progress">
+                    <div class="prob-tile-fill" id="resPromotionBar" style="width: 0%; background: var(--accent-promotion);"></div>
+                  </div>
+                  <div class="prob-tile-sub" id="resThreshPromoText">Threshold: 50%</div>
+                </div>
+              </div>
+
+              <!-- Coordinate-style Talent Matrix Visualization -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">2×2 Talent Risk & Value Matrix</div>
+                    <div class="card-subtitle">Plotted along calibrated decision boundaries</div>
+                  </div>
+                </div>
+
+                <div class="matrix-canvas-wrapper">
+                  <div class="matrix-grid-lines">
+                    <div class="matrix-quadrant-bg urgent" id="quadUrgent">
+                      <span class="matrix-quadrant-title" style="color: var(--accent-attrition);">Urgent Retention</span>
+                      <span class="matrix-quadrant-share">High Risk • High Readiness</span>
+                    </div>
+
+                    <div class="matrix-quadrant-bg invest" id="quadInvest">
+                      <span class="matrix-quadrant-title" style="color: var(--accent-promotion);">Invest & Fast-Track</span>
+                      <span class="matrix-quadrant-share">Low Risk • High Readiness</span>
+                    </div>
+
+                    <div class="matrix-quadrant-bg monitor" id="quadMonitor">
+                      <span class="matrix-quadrant-title" style="color: var(--accent-warning);">Monitor & Engage</span>
+                      <span class="matrix-quadrant-share">High Risk • Low Readiness</span>
+                    </div>
+
+                    <div class="matrix-quadrant-bg core" id="quadCore">
+                      <span class="matrix-quadrant-title" style="color: var(--accent-primary);">Core Performer</span>
+                      <span class="matrix-quadrant-share">Low Risk • Low Readiness</span>
+                    </div>
+                  </div>
+
+                  <!-- Axis Labels -->
+                  <div class="matrix-axis-label-x">Promotion Readiness →</div>
+                  <div class="matrix-axis-label-y">Attrition Risk →</div>
+
+                  <!-- Dynamically Plotted Employee Marker -->
+                  <div class="matrix-employee-dot" id="matrixEmployeePin" style="left: 50%; top: 50%;"></div>
+                </div>
+
+                <!-- Strategic Focus Card -->
+                <div class="recommendation-card" id="recommendationCard">
+                  <div class="recommendation-title">
+                    <span id="recFocusTitle">STRATEGIC RETENTION FOCUS</span>
+                  </div>
+                  <div class="recommendation-text" id="recFocusText">
+                    Run profile evaluation to generate advisory recommendations.
+                  </div>
+                  <ul class="recommendation-steps" id="recSuggestedSteps"></ul>
+                  <div class="disclaimer-text">
+                    Advisory Notice: Probabilistic ML estimates intended as managerial decision support.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Local SHAP Feature Drivers -->
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Local SHAP Feature Attributions</div>
+                  <span class="badge badge-indigo">Directional Impact</span>
+                </div>
+
+                <div class="layout-2col">
+                  <div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--accent-attrition); text-transform: uppercase; margin-bottom: 8px;">
+                      Attrition Risk Drivers
+                    </div>
+                    <div id="resAttrShapDrivers">
+                      <div style="font-size: 11px; color: var(--text-muted);">Awaiting evaluation...</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--accent-promotion); text-transform: uppercase; margin-bottom: 8px;">
+                      Promotion Readiness Drivers
+                    </div>
+                    <div id="resPromoShapDrivers">
+                      <div style="font-size: 11px; color: var(--text-muted);">Awaiting evaluation...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VIEW 3: MODEL PERFORMANCE -->
+        <!-- ================================================================= -->
+        <section id="view-models" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Model Evaluation & Benchmark</h2>
+              <p class="page-description">
+                Examine cross-validation results across candidate algorithms, confusion matrices, and global SHAP feature importance.
+              </p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-secondary model-tab-btn active" data-model="attrition" onclick="switchModelTab('attrition')">Attrition Model</button>
+              <button class="btn btn-secondary model-tab-btn" data-model="promotion" onclick="switchModelTab('promotion')">Promotion Model</button>
+            </div>
           </div>
 
-          <div style="flex: 1.2; min-width: 200px;">
-            <label>Search Employee ID / Number</label>
-            <input type="text" id="dsSearchInput" placeholder="Search ID or Emp #" oninput="fetchDatasetRecords()" style="width: 100%; margin-top: 0.3rem; padding: 0.55rem 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--card-border); color: var(--text-heading); border-radius: 8px; font-size: 0.85rem;">
-          </div>
-        </div>
+          <!-- Top Row: Selected Model Summary Tiles -->
+          <div class="kpi-grid">
+            <div class="kpi-card info">
+              <span class="kpi-label">Selected Algorithm</span>
+              <div class="kpi-value" id="perfSelectedAlgorithm" style="font-size: 18px; margin-top: 8px;">Logistic Regression</div>
+              <span class="kpi-subtext">Class-weight balanced</span>
+            </div>
 
-        <!-- Interactive Table -->
-        <div style="overflow-x: auto;">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Pseudonym ID</th>
-                <th>Employee #</th>
-                <th>Dept</th>
-                <th>Gender</th>
-                <th>Age</th>
-                <th>Tenure</th>
-                <th>Yrs Since Promo</th>
-                <th>Monthly Income</th>
-                <th>Perf Rating</th>
-                <th>Target Attrition</th>
-                <th>Target Promotion</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="datasetTableBody">
-              <tr>
-                <td colspan="12" style="text-align: center; padding: 2rem; color: var(--text-muted);">
-                  Loading authentic Kaggle dataset records...
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Test ROC-AUC</span>
+              <div class="kpi-value" id="perfRocAuc">0.5463</div>
+              <span class="kpi-subtext">Holdout test split</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-label">Test PR-AUC</span>
+              <div class="kpi-value" id="perfPrAuc">0.2093</div>
+              <span class="kpi-subtext">Imbalance-sensitive metric</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-label">Test F1-Score</span>
+              <div class="kpi-value" id="perfF1">0.2308</div>
+              <span class="kpi-subtext">Harmonic mean of P & R</span>
+            </div>
+
+            <div class="kpi-card warning">
+              <span class="kpi-label">Calibrated Threshold</span>
+              <div class="kpi-value" id="perfThreshold">0.40</div>
+              <span class="kpi-subtext">F1-optimized decision cutoff</span>
+            </div>
+          </div>
+
+          <!-- Second Row: Benchmark Table & Confusion Matrix -->
+          <div class="layout-2col">
+            <!-- Comparison Table -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Algorithm Benchmark (5-Fold Stratified CV)</div>
+              </div>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Model</th>
+                      <th>CV ROC-AUC</th>
+                      <th>Test ROC-AUC</th>
+                      <th>Test PR-AUC</th>
+                      <th>Test F1</th>
+                    </tr>
+                  </thead>
+                  <tbody id="perfComparisonTableBody">
+                    <tr><td colspan="5" style="text-align: center;">Loading benchmark metrics...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Confusion Matrix Card -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Holdout Test Confusion Matrix</div>
+                <span class="badge badge-gray">Decision Cutoff Applied</span>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+                  <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">True Negative</div>
+                  <div id="cmTN" style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-top: 4px;">--</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Correctly predicted negative</div>
+                </div>
+
+                <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+                  <div style="font-size: 11px; color: var(--accent-warning); text-transform: uppercase;">False Positive</div>
+                  <div id="cmFP" style="font-size: 20px; font-weight: 700; color: var(--accent-warning); margin-top: 4px;">--</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Type I Error</div>
+                </div>
+
+                <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+                  <div style="font-size: 11px; color: var(--accent-attrition); text-transform: uppercase;">False Negative</div>
+                  <div id="cmFN" style="font-size: 20px; font-weight: 700; color: var(--accent-attrition); margin-top: 4px;">--</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Type II Error</div>
+                </div>
+
+                <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px; text-align: center;">
+                  <div style="font-size: 11px; color: var(--accent-promotion); text-transform: uppercase;">True Positive</div>
+                  <div id="cmTP" style="font-size: 20px; font-weight: 700; color: var(--accent-promotion); margin-top: 4px;">--</div>
+                  <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Correctly predicted positive</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Third Row: Global Feature Importance -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Global Feature Importance (SHAP Mean |Attribution|)</div>
+                <div class="card-subtitle">Aggregate feature magnitude across holdout samples</div>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <button class="btn btn-preset shap-filter-btn" data-limit="5" onclick="setGlobalShapFilter(5)">Top 5</button>
+                <button class="btn btn-preset shap-filter-btn active" data-limit="10" onclick="setGlobalShapFilter(10)">Top 10</button>
+                <button class="btn btn-preset shap-filter-btn" data-limit="0" onclick="setGlobalShapFilter(0)">All</button>
+              </div>
+            </div>
+            <div id="globalFeatureImportanceList" style="margin-top: 8px;">
+              <div style="font-size: 12px; color: var(--text-muted);">Loading feature importances...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VIEW 4: WORKFORCE EDA -->
+        <!-- ================================================================= -->
+        <section id="view-eda" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Workforce Exploratory Data Analysis</h2>
+              <p class="page-description">
+                Statistical distribution summaries computed across authentic historical datasets prior to model training.
+              </p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-secondary btn-sm" onclick="fetchWorkforceEda()">Refresh Data</button>
+            </div>
+          </div>
+
+          <div class="layout-2col">
+            <!-- Attrition EDA -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Attrition Domain Dynamics (IBM HR Benchmark)</div>
+                  <div class="card-subtitle">Sample Size: 1,470 employees • Base Turnover: 14.2%</div>
+                </div>
+                <span class="badge badge-rose">Turnover Patterns</span>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px;">
+                  Turnover Rate by Department
+                </div>
+                <div id="edaAttrDeptList">Loading...</div>
+              </div>
+
+              <div>
+                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px;">
+                  Overtime Correlation with Turnover
+                </div>
+                <div id="edaAttrOvertimeList">Loading...</div>
+              </div>
+            </div>
+
+            <!-- Promotion EDA -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Promotion Domain Dynamics (HR Analytics Benchmark)</div>
+                  <div class="card-subtitle">Sample Size: 54,808 records • Base Advancement: 4.3%</div>
+                </div>
+                <span class="badge badge-emerald">Advancement Patterns</span>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px;">
+                  Promotion Rate by KPI Achievement
+                </div>
+                <div id="edaPromoKpiList">Loading...</div>
+              </div>
+
+              <div>
+                <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px;">
+                  Promotion Rate by Top Departments
+                </div>
+                <div id="edaPromoDeptList">Loading...</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VIEW 5: DEMOGRAPHIC FAIRNESS -->
+        <!-- ================================================================= -->
+        <section id="view-fairness" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Fairness Diagnostics & Disparate Impact</h2>
+              <p class="page-description">
+                Evaluate algorithmic selection parity across demographic subgroups in alignment with the EEOC 80% Four-Fifths rule.
+              </p>
+            </div>
+            <div class="page-actions">
+              <span class="badge badge-emerald" id="fairnessAuditStatusBadge">Four-Fifths Rule Satisfied</span>
+            </div>
+          </div>
+
+          <div id="fairnessSubgroupCards">
+            <div style="font-size: 12px; color: var(--text-muted);">Loading fairness diagnostics...</div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VIEW 6: BATCH SCORING -->
+        <!-- ================================================================= -->
+        <section id="view-batch" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Batch Employee Scoring</h2>
+              <p class="page-description">
+                Upload workforce CSV spreadsheets for batch inference, dual probability scoring, and 2×2 Talent Matrix classification.
+              </p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-secondary btn-sm" onclick="downloadTemplateCsv()">Download Template CSV</button>
+            </div>
+          </div>
+
+          <!-- Upload Dropzone -->
+          <div class="card">
+            <div class="file-dropzone" id="batchDropzone">
+              <input type="file" id="batchFileInput" accept=".csv" style="display: none;">
+              <div class="dropzone-icon">📁</div>
+              <div class="dropzone-title">Upload Employee CSV File</div>
+              <div class="dropzone-subtitle">Click to browse or drag and drop your employee spreadsheet</div>
+            </div>
+            <div id="batchUploadStatus" style="font-size: 12px; margin-top: 10px;"></div>
+          </div>
+
+          <!-- Batch Results Section -->
+          <div class="card" id="batchResultsCard" style="display: none;">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Batch Evaluation Results</div>
+                <div class="card-subtitle">Summary breakdown across workforce segments</div>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="text" id="batchSearchFilter" placeholder="Filter records..." style="width: 160px; font-size: 12px; padding: 5px 8px;">
+                <button class="btn btn-secondary btn-sm" onclick="exportBatchCsv()">Export Scored CSV</button>
+              </div>
+            </div>
+
+            <!-- Quadrant Count Badges -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+              <div class="status-badge"><strong id="batchCountUrgent" style="color: var(--accent-attrition);">0</strong> Urgent Retention</div>
+              <div class="status-badge"><strong id="batchCountInvest" style="color: var(--accent-promotion);">0</strong> Invest & Fast-Track</div>
+              <div class="status-badge"><strong id="batchCountMonitor" style="color: var(--accent-warning);">0</strong> Monitor & Engage</div>
+              <div class="status-badge"><strong id="batchCountCore" style="color: var(--accent-primary);">0</strong> Core Performer</div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee ID</th>
+                    <th>Attrition Risk</th>
+                    <th>Promotion Readiness</th>
+                    <th>Talent Category</th>
+                    <th>Priority Level</th>
+                    <th>Top Predictive Driver</th>
+                  </tr>
+                </thead>
+                <tbody id="batchResultsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VIEW 7: DATASET EXPLORER -->
+        <!-- ================================================================= -->
+        <section id="view-dataset" class="view-panel">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Dataset Explorer</h2>
+              <p class="page-description">
+                Inspect authentic historical training records used in feature stores and model development.
+              </p>
+            </div>
+            <div class="page-actions">
+              <select id="dsSourceSelect" onchange="fetchDatasetExplorer()" style="width: auto; font-size: 12px;">
+                <option value="attrition">IBM HR Attrition Dataset</option>
+                <option value="promotion">HR Promotion Analytics Dataset</option>
+              </select>
+              <select id="dsDeptFilter" onchange="fetchDatasetExplorer()" style="width: auto; font-size: 12px;">
+                <option value="ALL">All Departments</option>
+                <option value="R&D">R&D</option>
+                <option value="Sales">Sales</option>
+                <option value="Operations">Operations</option>
+                <option value="Technology">Technology</option>
+                <option value="Finance">Finance</option>
+                <option value="Human Resources">Human Resources</option>
+              </select>
+              <input type="text" id="dsSearchInput" placeholder="Search ID..." oninput="fetchDatasetExplorer()" style="width: 140px; font-size: 12px; padding: 5px 8px;">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div id="dsSummaryMeta" style="font-size: 12px; color: var(--text-secondary); font-weight: 600;">
+                Loading metadata...
+              </div>
+              <span id="dsRecordCounter" style="font-size: 11px; color: var(--text-muted);">0 records</span>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee ID</th>
+                    <th>Department</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Education</th>
+                    <th>Target Outcome</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dsTableBody">
+                  <tr><td colspan="7" style="text-align: center;">Loading dataset records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
     </div>
   </div>
 
-  <script>
-    const presets = {
-      flight_risk: {
-        employee_id: "EMP_FLIGHT_99",
-        department: "Sales",
-        gender: "Male",
-        age: 27,
-        education_level: 3,
-        tenure_years: 2.0,
-        years_since_promotion: 2.0,
-        monthly_income: 3400,
-        overtime_status: "1",
-        satisfaction_score: 1.5,
-        performance_rating: 3.8,
-        kpi_met_above_80: "1",
-        awards_won: "0"
-      },
-      high_potential: {
-        employee_id: "EMP_STAR_01",
-        department: "Technology",
-        gender: "Female",
-        age: 34,
-        education_level: 4,
-        tenure_years: 6.0,
-        years_since_promotion: 3.5,
-        monthly_income: 14000,
-        overtime_status: "0",
-        satisfaction_score: 4.5,
-        performance_rating: 4.8,
-        kpi_met_above_80: "1",
-        awards_won: "1"
-      },
-      core: {
-        employee_id: "EMP_CORE_44",
-        department: "R&D",
-        gender: "Female",
-        age: 32,
-        education_level: 3,
-        tenure_years: 4.5,
-        years_since_promotion: 2.5,
-        monthly_income: 6200,
-        overtime_status: "0",
-        satisfaction_score: 3.5,
-        performance_rating: 3.2,
-        kpi_met_above_80: "0",
-        awards_won: "0"
-      }
-    };
-
-    function loadPreset(key) {
-      const p = presets[key];
-      for (const field in p) {
-        const el = document.getElementById(field);
-        if (el) el.value = p[field];
-      }
-      onEmpIdInput();
-      runEvaluation();
-    }
-
-    function switchTab(tab) {
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-      if (tab === 'single') {
-        document.querySelectorAll('.nav-tab')[0].classList.add('active');
-        document.getElementById('tabSingle').classList.add('active');
-      } else if (tab === 'dataset') {
-        document.querySelectorAll('.nav-tab')[1].classList.add('active');
-        document.getElementById('tabDataset').classList.add('active');
-        fetchDatasetRecords();
-      }
-    }
-
-    async function lookupEmpId() {
-      const idVal = document.getElementById('employee_id').value.trim();
-      if (!idVal) return;
-      const infoEl = document.getElementById('empIdInfo');
-      const badgeEl = document.getElementById('empIdBadge');
-
-      infoEl.innerHTML = '<span style="color: var(--indigo);">Searching dataset...</span>';
-
-      try {
-        const res = await fetch(`/api/employee/${encodeURIComponent(idVal)}`);
-        const data = await res.json();
-
-        if (data.found && data.record) {
-          badgeEl.className = 'badge badge-emerald';
-          badgeEl.innerText = `Emp #${data.employee_number}`;
-          infoEl.innerHTML = `<span style="color: var(--emerald);">✅ Employee found in dataset! Employee Number: <strong>${data.employee_number}</strong> (${data.record.department}, Age ${data.record.age}). Loaded profile.</span>`;
-          loadRecordToForm(data.record, false);
-        } else {
-          badgeEl.className = 'badge badge-cyan';
-          badgeEl.innerText = `NEW Identifier`;
-          infoEl.innerHTML = `<span style="color: var(--amber);">⚡ New Employee Identifier <strong>'${idVal}'</strong>. Will be automatically added to dataset upon evaluation.</span>`;
-        }
-      } catch (err) {
-        infoEl.innerHTML = `<span style="color: var(--rose);">Error looking up ID: ${err.message}</span>`;
-      }
-    }
-
-    function onEmpIdInput() {
-      const badgeEl = document.getElementById('empIdBadge');
-      const infoEl = document.getElementById('empIdInfo');
-      badgeEl.className = 'badge badge-gray';
-      badgeEl.innerText = 'Dataset Lookup';
-      infoEl.innerText = '';
-    }
-
-    async function fetchDatasetRecords() {
-      const src = document.getElementById('dsSourceSelect').value;
-      const dept = document.getElementById('dsDeptSelect').value;
-      const search = document.getElementById('dsSearchInput') ? document.getElementById('dsSearchInput').value : '';
-      const tbody = document.getElementById('datasetTableBody');
-
-      tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; padding: 2rem; color: var(--text-muted);">Fetching records from server...</td></tr>';
-
-      try {
-        const res = await fetch(`/api/dataset?dataset_type=${src}&department=${dept}&search_id=${encodeURIComponent(search)}&limit=50`);
-        const data = await res.json();
-
-        document.getElementById('datasetCounter').innerText = `Displaying ${data.records.length} of ${data.total_records.toLocaleString()} Records`;
-
-        tbody.innerHTML = data.records.map(r => `
-          <tr>
-            <td style="font-weight: 700;">${r.employee_id || 'EMP_UNKNOWN'}</td>
-            <td>${r.employee_number ? '<span class="badge badge-indigo">#' + r.employee_number + '</span>' : '<span class="badge badge-gray">N/A</span>'}</td>
-            <td>${r.department || 'Operations'}</td>
-            <td>${r.gender || 'Female'}</td>
-            <td>${r.age || 30}</td>
-            <td>${r.tenure_years !== null ? r.tenure_years + ' yrs' : '--'}</td>
-            <td>${r.years_since_promotion !== null ? r.years_since_promotion + ' yrs' : '--'}</td>
-            <td>$${r.monthly_income ? r.monthly_income.toLocaleString() : '--'}</td>
-            <td>${r.performance_rating ? r.performance_rating : '--'}</td>
-            <td>${r.target_attrition === 1 ? '<span class="badge badge-rose">Yes (1)</span>' : r.target_attrition === 0 ? '<span class="badge badge-gray">No (0)</span>' : '--'}</td>
-            <td>${r.target_promotion === 1 ? '<span class="badge badge-emerald">Yes (1)</span>' : r.target_promotion === 0 ? '<span class="badge badge-gray">No (0)</span>' : '--'}</td>
-            <td>
-              <button class="btn-action-sm" onclick='loadRecordToForm(${JSON.stringify(r).replace(/'/g, "&apos;")})'>Evaluate ⚡</button>
-            </td>
-          </tr>
-        `).join('');
-      } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="12" style="text-align: center; color: var(--rose);">Error loading dataset: ${err.message}</td></tr>`;
-      }
-    }
-
-    function loadRecordToForm(r, triggerEval = true) {
-      document.getElementById('employee_id').value = r.employee_id || 'EMP_RECORD';
-      document.getElementById('department').value = r.department || 'R&D';
-      document.getElementById('gender').value = r.gender || 'Female';
-      document.getElementById('age').value = r.age || 30;
-      document.getElementById('education_level').value = r.education_level || 3;
-      document.getElementById('tenure_years').value = r.tenure_years || 4.0;
-      document.getElementById('years_since_promotion').value = r.years_since_promotion || 2.0;
-      document.getElementById('monthly_income').value = r.monthly_income || 6000;
-      document.getElementById('overtime_status').value = r.overtime_status !== undefined ? String(r.overtime_status) : "0";
-      document.getElementById('satisfaction_score').value = r.satisfaction_score || 3.0;
-      document.getElementById('performance_rating').value = r.performance_rating || 3.5;
-      document.getElementById('kpi_met_above_80').value = r.kpi_met_above_80 !== undefined ? String(r.kpi_met_above_80) : "1";
-      document.getElementById('awards_won').value = r.awards_won !== undefined ? String(r.awards_won) : "0";
-
-      const badgeEl = document.getElementById('empIdBadge');
-      const infoEl = document.getElementById('empIdInfo');
-      if (r.employee_number) {
-        badgeEl.className = 'badge badge-emerald';
-        badgeEl.innerText = `Emp #${r.employee_number}`;
-        infoEl.innerHTML = `<span style="color: var(--emerald);">✅ Employee <strong>${r.employee_id}</strong> (Emp #${r.employee_number}) loaded from dataset.</span>`;
-      }
-
-      if (triggerEval) {
-        switchTab('single');
-        runEvaluation();
-      }
-    }
-
-    async function runEvaluation() {
-      const payload = {
-        employee_id: document.getElementById('employee_id').value,
-        department: document.getElementById('department').value,
-        gender: document.getElementById('gender').value,
-        age: parseInt(document.getElementById('age').value),
-        education_level: parseInt(document.getElementById('education_level').value),
-        tenure_years: parseFloat(document.getElementById('tenure_years').value),
-        years_since_promotion: parseFloat(document.getElementById('years_since_promotion').value),
-        num_trainings_last_year: 2,
-        performance_rating: parseFloat(document.getElementById('performance_rating').value),
-        kpi_met_above_80: parseInt(document.getElementById('kpi_met_above_80').value),
-        awards_won: parseInt(document.getElementById('awards_won').value),
-        overtime_status: parseInt(document.getElementById('overtime_status').value),
-        satisfaction_score: parseFloat(document.getElementById('satisfaction_score').value),
-        monthly_income: parseFloat(document.getElementById('monthly_income').value),
-        stock_option_level: 1
-      };
-
-      const btn = document.getElementById('btnSubmit');
-      btn.innerText = "⏳ Scoring via Dual XGBoost Engine...";
-      btn.disabled = true;
-
-      try {
-        const res = await fetch('/predict', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await res.json();
-        updateDashboard(data);
-
-        // Update ID info badge
-        const badgeEl = document.getElementById('empIdBadge');
-        const infoEl = document.getElementById('empIdInfo');
-        if (data.is_new_record) {
-          badgeEl.className = 'badge badge-cyan';
-          badgeEl.innerText = `Emp #${data.employee_number || data.employee_id}`;
-          infoEl.innerHTML = `<span style="color: var(--cyan);">✨ NEW Employee profile added to master dataset! Emp #${data.employee_number || data.employee_id}</span>`;
-        } else if (data.employee_number) {
-          badgeEl.className = 'badge badge-emerald';
-          badgeEl.innerText = `Emp #${data.employee_number}`;
-        }
-      } catch (err) {
-        console.error("Prediction error:", err);
-      } finally {
-        btn.innerText = "⚡ Evaluate Talent Risk & Readiness";
-        btn.disabled = false;
-      }
-    }
-
-    function updateDashboard(data) {
-      const pAttr = data.attrition_risk_score;
-      const pPromo = data.promotion_readiness_score;
-
-      document.getElementById('valAttrition').innerText = (pAttr * 100).toFixed(1) + '%';
-      document.getElementById('valPromotion').innerText = (pPromo * 100).toFixed(1) + '%';
-      document.getElementById('valQuadrant').innerText = data.quadrant.split('/')[0];
-      document.getElementById('valPriority').innerText = 'PRIORITY: ' + data.priority_level;
-
-      document.getElementById('barAttrition').style.width = (pAttr * 100) + '%';
-      document.getElementById('barPromotion').style.width = (pPromo * 100) + '%';
-
-      const marker = document.getElementById('targetMarker');
-      if (marker) {
-        const markerX = Math.min(Math.max(pPromo * 100, 5), 95);
-        const markerY = Math.min(Math.max((1.0 - pAttr) * 100, 5), 95);
-        marker.style.left = markerX + '%';
-        marker.style.top = markerY + '%';
-      }
-
-      document.querySelectorAll('.quadrant-box').forEach(q => q.classList.remove('active'));
-
-      if (data.quadrant.includes("Urgent Retention")) {
-        document.getElementById('q_retain').classList.add('active');
-        document.getElementById('strategyBanner').style.borderLeftColor = 'var(--rose)';
-      } else if (data.quadrant.includes("Invest")) {
-        document.getElementById('q_invest').classList.add('active');
-        document.getElementById('strategyBanner').style.borderLeftColor = 'var(--emerald)';
-      } else if (data.quadrant.includes("Monitor")) {
-        document.getElementById('q_monitor').classList.add('active');
-        document.getElementById('strategyBanner').style.borderLeftColor = 'var(--amber)';
-      } else {
-        document.getElementById('q_core').classList.add('active');
-        document.getElementById('strategyBanner').style.borderLeftColor = 'var(--indigo)';
-      }
-
-      document.getElementById('strategyCode').innerText = data.action_code + ' • PRIORITY: ' + data.priority_level;
-      document.getElementById('strategyText').innerText = data.hr_action_recommendation;
-
-      renderShapBars(data.top_attrition_drivers, 'attritionShapList', 'var(--rose)');
-      renderShapBars(data.top_promotion_drivers, 'promotionShapList', 'var(--emerald)');
-    }
-
-    function renderShapBars(drivers, elementId, color) {
-      const container = document.getElementById(elementId);
-      if (!drivers || drivers.length === 0) {
-        container.innerHTML = '<div style="font-size: 0.8rem; color: var(--text-muted);">No drivers identified.</div>';
-        return;
-      }
-
-      const maxImpact = Math.max(...drivers.map(d => Math.abs(d.shap_impact)), 0.1);
-
-      container.innerHTML = drivers.map(d => {
-        const pct = Math.min((Math.abs(d.shap_impact) / maxImpact) * 100, 100);
-        return `
-          <div class="shap-bar-item">
-            <div class="shap-bar-meta">
-              <span style="font-weight: 600;">${d.feature_name}</span>
-              <span style="color: ${d.direction === 'increases_risk' ? 'var(--rose)' : 'var(--emerald)'};">
-                ${d.direction === 'increases_risk' ? '▲ +' : '▼ -'}${Math.abs(d.shap_impact).toFixed(3)}
-              </span>
-            </div>
-            <div class="shap-bar-track">
-              <div class="shap-bar-fill" style="width: ${pct}%; background: ${d.direction === 'increases_risk' ? 'var(--rose)' : 'var(--emerald)'};"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    document.getElementById('employeeForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      runEvaluation();
-    });
-
-    runEvaluation();
-  </script>
+  <!-- Application Controller -->
+  <script src="/static/js/app.js"></script>
 </body>
 </html>

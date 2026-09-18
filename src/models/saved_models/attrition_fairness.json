@@ -1,0 +1,25 @@
+{
+  "overall_fairness_passed": true,
+  "subgroup_audits": [
+    {
+      "protected_feature": "gender",
+      "unprivileged_group": "Female",
+      "privileged_group": "Male",
+      "unprivileged_selection_rate": 0.5841,
+      "privileged_selection_rate": 0.547,
+      "disparate_impact_ratio": 1.0678,
+      "threshold": 0.8,
+      "passed_fairness_audit": true
+    },
+    {
+      "protected_feature": "age_group",
+      "unprivileged_group": "<30",
+      "privileged_group": ">=30",
+      "unprivileged_selection_rate": 0.9231,
+      "privileged_selection_rate": 0.4306,
+      "disparate_impact_ratio": 2.1439,
+      "threshold": 0.8,
+      "passed_fairness_audit": true
+    }
+  ]
+}

@@ -8,7 +8,11 @@ import sys
 import logging
 import pandas as pd
 import numpy as np
+import json
+import hashlib
+from datetime import datetime
 from pathlib import Path
+from typing import Dict
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -20,6 +24,49 @@ DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "raw"
 IBM_ATTRITION_URL = "https://raw.githubusercontent.com/ibm-developer-skills-network/ML0101EN-SkillsNetwork/main/labs/Module%203/data/WA_Fn-UseC_-HR-Employee-Attrition.csv"
 HR_PROMOTION_URL = "https://raw.githubusercontent.com/dphi-official/Datasets/master/hr_analytics/train_LZ43U5d.csv"
 
+def _compute_file_hash(filepath: Path) -> str:
+    """Computes SHA-256 hash of a file."""
+    sha256 = hashlib.sha256()
+    with open(filepath, "rb") as f:
+        for block in iter(lambda: f.read(4096), b""):
+            sha256.update(block)
+    return sha256.hexdigest()
+
+def _save_data_manifest(raw_dir: Path, ibm_mode: str, promo_mode: str):
+    """Saves data provenance manifest."""
+    manifest = {
+        "created_at": datetime.now().isoformat(),
+        "datasets": {
+            "ibm_attrition": {
+                "file": "ibm_attrition_raw.csv",
+                "mode": ibm_mode,  # "REAL" or "SYNTHETIC"
+                "source_url": IBM_ATTRITION_URL if ibm_mode == "REAL" else "synthetic_generator",
+                "sha256": _compute_file_hash(raw_dir / "ibm_attrition_raw.csv")
+            },
+            "hr_promotion": {
+                "file": "hr_promotion_raw.csv",
+                "mode": promo_mode,  # "REAL" or "SYNTHETIC"
+                "source_url": HR_PROMOTION_URL if promo_mode == "REAL" else "synthetic_generator",
+                "sha256": _compute_file_hash(raw_dir / "hr_promotion_raw.csv")
+            }
+        }
+    }
+    manifest_path = raw_dir / "data_manifest.json"
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=2)
+    logger.info("Saved data manifest to %s", manifest_path)
+
+def get_data_mode(raw_dir: Path = DATA_DIR) -> Dict[str, str]:
+    """Returns the data mode for each dataset from the manifest."""
+    manifest_path = raw_dir / "data_manifest.json"
+    if manifest_path.exists():
+        with open(manifest_path) as f:
+            manifest = json.load(f)
+        return {
+            "ibm_attrition": manifest["datasets"]["ibm_attrition"]["mode"],
+            "hr_promotion": manifest["datasets"]["hr_promotion"]["mode"]
+        }
+    return {"ibm_attrition": "UNKNOWN", "hr_promotion": "UNKNOWN"}
 
 def generate_synthetic_ibm_attrition(num_samples: int = 1470) -> pd.DataFrame:
     """Generates synthetic IBM HR Attrition dataset matching exact schema and distributions."""
@@ -132,6 +179,9 @@ def download_or_generate_datasets(raw_dir: Path = DATA_DIR):
     ibm_file = raw_dir / "ibm_attrition_raw.csv"
     promo_file = raw_dir / "hr_promotion_raw.csv"
 
+    ibm_mode = "UNKNOWN"
+    promo_mode = "UNKNOWN"
+
     # Download or generate IBM Attrition dataset
     if not ibm_file.exists():
         logger.info("Attempting to download IBM Attrition dataset from URL...")
@@ -139,13 +189,16 @@ def download_or_generate_datasets(raw_dir: Path = DATA_DIR):
             df_ibm = pd.read_csv(IBM_ATTRITION_URL)
             df_ibm.to_csv(ibm_file, index=False)
             logger.info("Downloaded IBM Attrition dataset to %s (%d rows)", ibm_file, len(df_ibm))
+            ibm_mode = "REAL"
         except Exception as e:
             logger.warning("Download failed (%s). Generating synthetic IBM dataset...", str(e))
             df_ibm = generate_synthetic_ibm_attrition()
             df_ibm.to_csv(ibm_file, index=False)
             logger.info("Saved synthetic IBM Attrition dataset to %s", ibm_file)
+            ibm_mode = "SYNTHETIC"
     else:
         logger.info("IBM Attrition raw dataset already exists at %s", ibm_file)
+        ibm_mode = get_data_mode(raw_dir).get("ibm_attrition", "UNKNOWN")
 
     # Download or generate HR Promotion dataset
     if not promo_file.exists():
@@ -154,14 +207,18 @@ def download_or_generate_datasets(raw_dir: Path = DATA_DIR):
             df_promo = pd.read_csv(HR_PROMOTION_URL)
             df_promo.to_csv(promo_file, index=False)
             logger.info("Downloaded HR Promotion dataset to %s (%d rows)", promo_file, len(df_promo))
+            promo_mode = "REAL"
         except Exception as e:
             logger.warning("Download failed (%s). Generating synthetic HR Promotion dataset...", str(e))
             df_promo = generate_synthetic_hr_promotion()
             df_promo.to_csv(promo_file, index=False)
             logger.info("Saved synthetic HR Promotion dataset to %s", promo_file)
+            promo_mode = "SYNTHETIC"
     else:
         logger.info("HR Promotion raw dataset already exists at %s", promo_file)
+        promo_mode = get_data_mode(raw_dir).get("hr_promotion", "UNKNOWN")
 
+    _save_data_manifest(raw_dir, ibm_mode, promo_mode)
 
 if __name__ == "__main__":
     download_or_generate_datasets()

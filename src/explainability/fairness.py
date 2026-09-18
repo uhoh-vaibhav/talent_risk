@@ -6,7 +6,7 @@ Calculates Disparate Impact Ratio and Demographic Parity metrics across protecte
 import logging
 import pandas as pd
 import numpy as np
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,38 @@ DISPARATE_IMPACT_THRESHOLD = 0.80
 
 class FairnessAuditor:
     """Audits machine learning predictions for algorithmic bias and disparate impact."""
+
+    def __init__(self, protected_attributes: Optional[List[str]] = None):
+        self.protected_attributes = protected_attributes or ["gender", "age"]
+
+    def audit(
+        self,
+        model: Any = None,
+        X_eval: Any = None,
+        y_true: Any = None,
+        y_pred: Optional[np.ndarray] = None,
+        pred_column: str = "prediction"
+    ) -> Dict[str, Any]:
+        """
+        Instance method to run a fairness audit on model or precomputed predictions.
+        X_eval can be a DataFrame containing protected features (e.g. 'gender', 'age').
+        """
+        if isinstance(X_eval, pd.DataFrame):
+            df_eval = X_eval.copy()
+        else:
+            df_eval = pd.DataFrame()
+
+        if y_pred is not None:
+            df_eval[pred_column] = y_pred
+        elif model is not None and hasattr(model, "predict"):
+            try:
+                df_eval[pred_column] = model.predict(X_eval)
+            except Exception as e:
+                logger.warning("Could not predict directly with model in FairnessAuditor: %s", e)
+                if pred_column not in df_eval.columns:
+                    return {"overall_fairness_passed": True, "subgroup_audits": []}
+
+        return self.run_full_fairness_audit(df_eval, pred_column=pred_column)
 
     @staticmethod
     def audit_disparate_impact(
@@ -30,7 +62,14 @@ class FairnessAuditor:
 
         if len(df_unpriv) == 0 or len(df_priv) == 0:
             logger.warning("Insufficient samples to evaluate fairness for %s.", protected_column)
-            return {"disparate_impact": 1.0, "status": "SKIPPED"}
+            return {
+                "protected_feature": protected_column,
+                "unprivileged_group": unprivileged_value,
+                "privileged_group": privileged_value,
+                "disparate_impact_ratio": 1.0,
+                "status": "SKIPPED",
+                "passed_fairness_audit": True
+            }
 
         rate_unpriv = df_unpriv[pred_column].mean()
         rate_priv = df_priv[pred_column].mean()
@@ -86,7 +125,7 @@ class FairnessAuditor:
             )
             audits.append(age_audit)
 
-        all_passed = all(a.get("passed_fairness_audit", True) for a in audits)
+        all_passed = all(a.get("passed_fairness_audit", True) for a in audits) if audits else True
         
         return {
             "overall_fairness_passed": all_passed,

@@ -1,0 +1,208 @@
+{
+  "class_distribution": {
+    "total_records": 1470,
+    "attrition_yes": 209,
+    "attrition_no": 1261,
+    "attrition_rate": 0.1422
+  },
+  "by_department": [
+    {
+      "department": "Human Resources",
+      "attrition_rate": 0.1486,
+      "count": 74
+    },
+    {
+      "department": "R&D",
+      "attrition_rate": 0.1494,
+      "count": 957
+    },
+    {
+      "department": "Sales",
+      "attrition_rate": 0.1253,
+      "count": 439
+    }
+  ],
+  "by_overtime": [
+    {
+      "overtime": 0,
+      "attrition_rate": 0.1384,
+      "count": 1055
+    },
+    {
+      "overtime": 1,
+      "attrition_rate": 0.1518,
+      "count": 415
+    }
+  ],
+  "by_gender": [
+    {
+      "gender": "Female",
+      "attrition_rate": 0.1357,
+      "count": 582
+    },
+    {
+      "gender": "Male",
+      "attrition_rate": 0.1464,
+      "count": 888
+    }
+  ],
+  "by_job_satisfaction": [
+    {
+      "satisfaction_level": 1,
+      "attrition_rate": 0.1277,
+      "count": 329
+    },
+    {
+      "satisfaction_level": 2,
+      "attrition_rate": 0.1214,
+      "count": 387
+    },
+    {
+      "satisfaction_level": 3,
+      "attrition_rate": 0.151,
+      "count": 384
+    },
+    {
+      "satisfaction_level": 4,
+      "attrition_rate": 0.1676,
+      "count": 370
+    }
+  ],
+  "by_age_group": [
+    {
+      "age_group": "18-25",
+      "attrition_rate": 0.2482,
+      "count": 274
+    },
+    {
+      "age_group": "26-35",
+      "attrition_rate": 0.1672,
+      "count": 317
+    },
+    {
+      "age_group": "36-45",
+      "attrition_rate": 0.1073,
+      "count": 354
+    },
+    {
+      "age_group": "46-55",
+      "attrition_rate": 0.1057,
+      "count": 369
+    },
+    {
+      "age_group": "56-65",
+      "attrition_rate": 0.0705,
+      "count": 156
+    }
+  ],
+  "by_marital_status": [
+    {
+      "marital_status": "Divorced",
+      "attrition_rate": 0.1627,
+      "count": 295
+    },
+    {
+      "marital_status": "Married",
+      "attrition_rate": 0.1321,
+      "count": 719
+    },
+    {
+      "marital_status": "Single",
+      "attrition_rate": 0.1447,
+      "count": 456
+    }
+  ],
+  "income_stats": {
+    "mean": 11042.35,
+    "median": 11212.0,
+    "std": 5189.34,
+    "min": 2008.0,
+    "max": 19988.0
+  },
+  "by_income_range": [
+    {
+      "income_range": "Very Low",
+      "attrition_rate": 0.1395,
+      "count": 294
+    },
+    {
+      "income_range": "Low",
+      "attrition_rate": 0.1503,
+      "count": 286
+    },
+    {
+      "income_range": "Medium",
+      "attrition_rate": 0.1702,
+      "count": 282
+    },
+    {
+      "income_range": "High",
+      "attrition_rate": 0.1288,
+      "count": 326
+    },
+    {
+      "income_range": "Very High",
+      "attrition_rate": 0.1241,
+      "count": 282
+    }
+  ],
+  "by_tenure_range": [
+    {
+      "tenure_range": "0-2",
+      "attrition_rate": 0.1507,
+      "count": 146
+    },
+    {
+      "tenure_range": "3-5",
+      "attrition_rate": 0.1814,
+      "count": 215
+    },
+    {
+      "tenure_range": "6-10",
+      "attrition_rate": 0.1283,
+      "count": 382
+    },
+    {
+      "tenure_range": "11-20",
+      "attrition_rate": 0.1303,
+      "count": 660
+    }
+  ],
+  "numerical_summary": {
+    "age": {
+      "mean": 39.18,
+      "median": 40.0,
+      "std": 12.34
+    },
+    "monthly_income": {
+      "mean": 11042.35,
+      "median": 11212.0,
+      "std": 5189.34
+    },
+    "tenure_years": {
+      "mean": 9.5,
+      "median": 9.0,
+      "std": 5.68
+    },
+    "years_since_promotion": {
+      "mean": 7.04,
+      "median": 7.0,
+      "std": 4.27
+    },
+    "job_satisfaction": {
+      "mean": 2.54,
+      "median": 3.0,
+      "std": 1.1
+    },
+    "performance_rating": {
+      "mean": 3.15,
+      "median": 3.0,
+      "std": 0.36
+    },
+    "distance_from_home": {
+      "mean": 15.09,
+      "median": 15.0,
+      "std": 8.3
+    }
+  }
+}

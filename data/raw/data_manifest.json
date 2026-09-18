@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-09-19T02:24:43.252407",
+  "datasets": {
+    "ibm_attrition": {
+      "file": "ibm_attrition_raw.csv",
+      "mode": "SYNTHETIC",
+      "source_url": "synthetic_generator",
+      "sha256": "5e58c011a3bec20baf1b2b01294f9304a5989c8a57443f163ff847afaf82573f"
+    },
+    "hr_promotion": {
+      "file": "hr_promotion_raw.csv",
+      "mode": "SYNTHETIC",
+      "source_url": "synthetic_generator",
+      "sha256": "bd97a76933bb9b91b2d5efe0f28a72cbc12ca881ea490b37969edcc2bbfa3cf9"
+    }
+  }
+}
